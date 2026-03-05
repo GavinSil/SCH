@@ -346,7 +346,7 @@ void SCH_MajorFrameCallback(void)
 ** NOTE: For complete prolog information, see above
 ********************************************************************/
 
-void SCH_MinorFrameCallback(uint32 TimerId)
+void SCH_MinorFrameCallback(osal_id_t TimerId)
 {
     uint32  CurrentSlot;
     

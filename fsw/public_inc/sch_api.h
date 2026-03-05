@@ -1,20 +1,20 @@
 /*
 ** $Id: sch_api.h 1.3 2017/06/21 15:28:57EDT mdeschu Exp  $
 **
-** Copyright (c) 2007-2014 United States Government as represented by the 
-** Administrator of the National Aeronautics and Space Administration. 
-** All Other Rights Reserved.  
+** Copyright (c) 2007-2014 United States Government as represented by the
+** Administrator of the National Aeronautics and Space Administration.
+** All Other Rights Reserved.
 **
 ** This software was created at NASA's Goddard Space Flight Center.
-** This software is governed by the NASA Open Source Agreement and may be 
-** used, distributed and modified only pursuant to the terms of that 
+** This software is governed by the NASA Open Source Agreement and may be
+** used, distributed and modified only pursuant to the terms of that
 ** agreement.
 **
 ** Purpose: This file contains api functions to change and obtain SCH Schedule Processing Enable State
-** 
+**
 ** Author:
 **
-** References: 
+** References:
 **
 */
 
@@ -82,7 +82,7 @@ void SCH_DisableProcessing(void);
 **
 **
 ******************************************************************************/
-boolean SCH_GetProcessingState(void);
+bool SCH_GetProcessingState(void);
 
 #endif /* _sch_api_ */
 

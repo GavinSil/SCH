@@ -166,7 +166,7 @@ void  SCH_MajorFrameCallback(void);
 **       None
 **       
 *************************************************************************/
-void  SCH_MinorFrameCallback(uint32 TimerId);
+void  SCH_MinorFrameCallback(osal_id_t TimerId);
 
 #endif /* _sch_custom_ */
 /************************/

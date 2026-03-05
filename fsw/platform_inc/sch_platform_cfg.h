@@ -96,7 +96,7 @@
 **  \par Limits
 **       Must be less than or equal to #CFE_SB_HIGHEST_VALID_MSGID and greater than SCH_MDT_MIN_MSG_ID
 */
-#define SCH_MDT_MAX_MSG_ID    CFE_SB_HIGHEST_VALID_MSGID
+#define SCH_MDT_MAX_MSG_ID    0xFFFF
 
 
 /**
