@@ -11,8 +11,6 @@ aux_source_directory(fsw/src APP_SRC_FILES)
 add_cfe_app(sch ${APP_SRC_FILES})
 
 # Add tables
-# Set target for table generation
-set(TGTNAME cpu1)
 add_cfe_tables(sch fsw/tables/sch_def_schtbl.c fsw/tables/sch_def_msgtbl.c)
 
 # If UT is enabled, then add the tests from the subdirectory
