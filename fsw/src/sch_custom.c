@@ -265,7 +265,7 @@ void SCH_MajorFrameCallback(void)
             ** of noisy major frames.  Also, indicate in telemetry that this particular
             ** Major Frame signal is considered noisy.
             */
-            SCH_AppData.UnexpectedMajorFrame = TRUE;
+            SCH_AppData.UnexpectedMajorFrame = true;
             SCH_AppData.UnexpectedMajorFrameCount++;
 
             /*
@@ -281,20 +281,20 @@ void SCH_MajorFrameCallback(void)
                 */
                 if (SCH_AppData.ConsecutiveNoisyFrameCounter >= SCH_MAX_NOISY_MAJORF)
                 {
-                    SCH_AppData.IgnoreMajorFrame = TRUE;
+                    SCH_AppData.IgnoreMajorFrame = true;
                 }
             }
         }
         else /* Major Frame occurred when expected */
         {
-            SCH_AppData.UnexpectedMajorFrame = FALSE;
+            SCH_AppData.UnexpectedMajorFrame = false;
             SCH_AppData.ConsecutiveNoisyFrameCounter = 0;
         }
         
         /*
         ** Ignore this callback if SCH has detected a noisy Major Frame Synch signal
         */
-        if (SCH_AppData.IgnoreMajorFrame == FALSE)
+        if (SCH_AppData.IgnoreMajorFrame == false)
         {
             /*
             ** Stop Minor Frame Timer (which should be waiting for an unusually long

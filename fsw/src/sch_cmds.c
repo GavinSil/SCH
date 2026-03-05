@@ -298,7 +298,7 @@ void SCH_ResetCmd(const CFE_SB_Buffer_t *BufPtr)
 
 void SCH_EnableCmd(const CFE_SB_Buffer_t *BufPtr)
 {
-    bool         GoodCommand = FALSE;
+    bool         GoodCommand = false;
     SCH_EntryCmd_t *EnableCmd = NULL;
     uint16          SlotNumber = 0;
     uint16          EntryNumber = 0;
@@ -341,7 +341,7 @@ void SCH_EnableCmd(const CFE_SB_Buffer_t *BufPtr)
             /*
             ** Success
             */
-            GoodCommand = TRUE;
+            GoodCommand = true;
 
             SCH_AppData.ScheduleTable[TableIndex].EnableState = SCH_ENABLED;
             CFE_TBL_Modified(SCH_AppData.ScheduleTableHandle);
@@ -368,7 +368,7 @@ void SCH_EnableCmd(const CFE_SB_Buffer_t *BufPtr)
 
 void SCH_DisableCmd(const CFE_SB_Buffer_t *BufPtr)
 {
-    bool         GoodCommand = FALSE;
+    bool         GoodCommand = false;
     SCH_EntryCmd_t *DisableCmd  = NULL;
     uint16          SlotNumber  = 0;
     uint16          EntryNumber = 0;
@@ -411,7 +411,7 @@ void SCH_DisableCmd(const CFE_SB_Buffer_t *BufPtr)
             /*
             ** Success
             */
-            GoodCommand = TRUE;
+            GoodCommand = true;
 
             SCH_AppData.ScheduleTable[TableIndex].EnableState = SCH_DISABLED;
             CFE_TBL_Modified(SCH_AppData.ScheduleTableHandle);
@@ -438,7 +438,7 @@ void SCH_DisableCmd(const CFE_SB_Buffer_t *BufPtr)
 
 void SCH_EnableGroupCmd(const CFE_SB_Buffer_t *BufPtr)
 {
-    bool              GoodCommand = FALSE;
+    bool              GoodCommand = false;
     uint32               TblGroupNumber = 0;
     uint32               TblMultiGroup = 0;
     int32                LoopCount = 0;
@@ -502,7 +502,7 @@ void SCH_EnableGroupCmd(const CFE_SB_Buffer_t *BufPtr)
                 CFE_EVS_SendEvent(SCH_ENA_GRP_CMD_EID, CFE_EVS_EventType_DEBUG,
                                   "ENABLE GROUP command: match count = %d",
                                   (int)MatchCount);
-                GoodCommand = TRUE;
+                GoodCommand = true;
             }
             else
             {
@@ -529,7 +529,7 @@ void SCH_EnableGroupCmd(const CFE_SB_Buffer_t *BufPtr)
 
 void SCH_DisableGroupCmd(const CFE_SB_Buffer_t *BufPtr)
 {
-    bool              GoodCommand = FALSE;
+    bool              GoodCommand = false;
     uint32               TblGroupNumber = 0;
     uint32               TblMultiGroup = 0;
     int32                LoopCount = 0;
@@ -593,7 +593,7 @@ void SCH_DisableGroupCmd(const CFE_SB_Buffer_t *BufPtr)
                 CFE_EVS_SendEvent(SCH_DIS_GRP_CMD_EID, CFE_EVS_EventType_DEBUG,
                                   "DISABLE GROUP command: match count = %d",
                                   (int)MatchCount);
-                GoodCommand = TRUE;
+                GoodCommand = true;
             }
             else
             {
@@ -620,14 +620,14 @@ void SCH_DisableGroupCmd(const CFE_SB_Buffer_t *BufPtr)
 
 void SCH_EnableSyncCmd(const CFE_SB_Buffer_t *BufPtr)
 {
-    bool   GoodCommand = FALSE;
+    bool   GoodCommand = false;
 
     if(SCH_VerifyCmdLength(BufPtr, sizeof(SCH_NoArgsCmd_t)) == SCH_SUCCESS)
     {
-        GoodCommand = TRUE;
+        GoodCommand = true;
 
-        SCH_AppData.IgnoreMajorFrame = FALSE;
-        SCH_AppData.UnexpectedMajorFrame = FALSE;
+        SCH_AppData.IgnoreMajorFrame = false;
+        SCH_AppData.UnexpectedMajorFrame = false;
         SCH_AppData.ConsecutiveNoisyFrameCounter = 0;
 
         CFE_EVS_SendEvent(SCH_ENA_SYNC_CMD_EID, CFE_EVS_EventType_DEBUG,
@@ -652,7 +652,7 @@ void SCH_EnableSyncCmd(const CFE_SB_Buffer_t *BufPtr)
 
 void SCH_SendDiagTlmCmd(const CFE_SB_Buffer_t *BufPtr)
 {
-    bool              GoodCommand = FALSE;
+    bool              GoodCommand = false;
     uint32               TblIndex = 0;
     uint32               WordIndex = 0;
     uint32               BitIndex = 0;
@@ -660,7 +660,7 @@ void SCH_SendDiagTlmCmd(const CFE_SB_Buffer_t *BufPtr)
 
     if(SCH_VerifyCmdLength(BufPtr, sizeof(SCH_NoArgsCmd_t)) == SCH_SUCCESS)
     {
-        GoodCommand = TRUE;
+        GoodCommand = true;
 
         /* Zero out the previous entry states */
         CFE_PSP_MemSet(&SCH_AppData.DiagPacket.EntryStates[0], 0x0, SCH_NUM_STATUS_BYTES_REQD);
@@ -687,7 +687,7 @@ void SCH_SendDiagTlmCmd(const CFE_SB_Buffer_t *BufPtr)
             }
             else
             {
-                SCH_AppData.DiagPacket.MsgIDs[TblIndex] = 0x0000;
+                SCH_AppData.DiagPacket.MsgIDs[TblIndex] = CFE_SB_ValueToMsgId(0x0000);
             }
         }
         /*

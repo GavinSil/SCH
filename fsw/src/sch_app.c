@@ -180,19 +180,19 @@ void SCH_AppMain(void)
         /*
         ** Report if during the previous frame the major has determined to be unstable
         */
-        if (SCH_AppData.IgnoreMajorFrame == TRUE)
+        if (SCH_AppData.IgnoreMajorFrame == true)
         {
-            if (SCH_AppData.IgnoreMajorFrameMsgSent == FALSE)
+            if (SCH_AppData.IgnoreMajorFrameMsgSent == false)
             {
                 CFE_EVS_SendEvent(SCH_NOISY_MAJOR_FRAME_ERR_EID, CFE_EVS_EventType_ERROR, 
                                   "Major Frame Sync too noisy (Slot %d). Disabling synchronization.", 
                                   SCH_AppData.MinorFramesSinceTone);
-                SCH_AppData.IgnoreMajorFrameMsgSent = TRUE;
+                SCH_AppData.IgnoreMajorFrameMsgSent = true;
             }
         }
         else
         {
-            SCH_AppData.IgnoreMajorFrameMsgSent = FALSE;
+            SCH_AppData.IgnoreMajorFrameMsgSent = false;
         }
 
         /*
@@ -200,7 +200,7 @@ void SCH_AppMain(void)
         */
 #if SCH_LIB_PRESENCE == 1
         if ((Status == OS_SUCCESS) &&
-            (SCH_GetProcessingState() == TRUE))
+            (SCH_GetProcessingState() == true))
         {
             Status = SCH_ProcessScheduleTable();
         }
@@ -336,6 +336,7 @@ int32 SCH_AppInit(void)
     */
     Status = CFE_EVS_SendEvent(SCH_INITSTATS_INF_EID,
                                CFE_EVS_EventType_INFORMATION,
+                               "SCH Initialized. Version %d.%d.%d.%d",
                                SCH_MAJOR_VERSION,
                                SCH_MINOR_VERSION,
                                SCH_REVISION,
@@ -375,7 +376,7 @@ int32 SCH_EvsInit(void)
     /*
     ** Register for event services
     */
-    Status = CFE_EVS_Register(SCH_AppData.EventFilters, SCH_FILTER_COUNT, CFE_EVS_BINARY_FILTER);
+    Status = CFE_EVS_Register(SCH_AppData.EventFilters, SCH_FILTER_COUNT, CFE_EVS_NO_FILTER);
     if (Status != CFE_SUCCESS)
     {
         CFE_ES_WriteToSysLog("SCH App: Error Registering For Event Services, RC=0x%08X\n", (unsigned int)Status);
@@ -398,7 +399,7 @@ int32 SCH_SbInit(void)
     int32 Status = CFE_SUCCESS;
     
     SCH_AppData.MsgPtr  = (CFE_SB_Buffer_t *) NULL;
-    SCH_AppData.CmdPipe = 0;
+    SCH_AppData.CmdPipe = CFE_SB_INVALID_PIPE;
     
     /*
     ** Initialize housekeeping packet (clear user data area)
@@ -424,7 +425,7 @@ int32 SCH_SbInit(void)
     /*
     ** Subscribe to Housekeeping request commands
     */
-    Status = CFE_SB_Subscribe(SCH_SEND_HK_MID, SCH_AppData.CmdPipe);
+    Status = CFE_SB_Subscribe(CFE_SB_ValueToMsgId(SCH_SEND_HK_MID), SCH_AppData.CmdPipe);
     if (Status != CFE_SUCCESS)
     {
         CFE_EVS_SendEvent(SCH_SUB_HK_REQ_ERR_EID, CFE_EVS_EventType_ERROR,
@@ -436,7 +437,7 @@ int32 SCH_SbInit(void)
     /*
     ** Subscribe to SCH ground command packets
     */
-    Status = CFE_SB_Subscribe(SCH_CMD_MID, SCH_AppData.CmdPipe);
+    Status = CFE_SB_Subscribe(CFE_SB_ValueToMsgId(SCH_CMD_MID), SCH_AppData.CmdPipe);
     if (Status != CFE_SUCCESS)
     {
         CFE_EVS_SendEvent(SCH_SUB_GND_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
@@ -578,9 +579,9 @@ int32 SCH_TimerInit(void)
     ** Start off assuming Major Frame synch is normal
     ** and should be coming at any moment
     */
-    SCH_AppData.IgnoreMajorFrame     = FALSE;
-    SCH_AppData.IgnoreMajorFrameMsgSent = FALSE;
-    SCH_AppData.UnexpectedMajorFrame = FALSE;
+    SCH_AppData.IgnoreMajorFrame     = false;
+    SCH_AppData.IgnoreMajorFrameMsgSent = false;
+    SCH_AppData.UnexpectedMajorFrame = false;
     SCH_AppData.SyncToMET            = SCH_NOT_SYNCHRONIZED;
     SCH_AppData.MajorFrameSource     = SCH_MAJOR_FS_NONE;
     SCH_AppData.NextSlotNumber       = 0;
