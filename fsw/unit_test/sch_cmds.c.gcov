@@ -3,13 +3,13 @@
         -:    1:/*
         -:    2:** $Id: sch_cmds.c.gcov 1.2 2017/06/21 16:39:46EDT mdeschu Exp  $
         -:    3:**
-        -:    4:**  Copyright (c) 2007-2014 United States Government as represented by the 
-        -:    5:**  Administrator of the National Aeronautics and Space Administration. 
-        -:    6:**  All Other Rights Reserved.  
+        -:    4:**  Copyright (c) 2007-2014 United States Government as represented by the
+        -:    5:**  Administrator of the National Aeronautics and Space Administration.
+        -:    6:**  All Other Rights Reserved.
         -:    7:**
         -:    8:**  This software was created at NASA's Goddard Space Flight Center.
-        -:    9:**  This software is governed by the NASA Open Source Agreement and may be 
-        -:   10:**  used, distributed and modified only pursuant to the terms of that 
+        -:    9:**  This software is governed by the NASA Open Source Agreement and may be
+        -:   10:**  used, distributed and modified only pursuant to the terms of that
         -:   11:**  agreement.
         -:   12:**
         -:   13:** Purpose: Scheduler (SCH) application command handling
@@ -187,7 +187,7 @@
         4:  185:        SCH_AppData.HkPacket.UnexpectedMajorFrame         = SCH_AppData.UnexpectedMajorFrame;
         4:  186:        SCH_AppData.HkPacket.SyncToMET                    = SCH_AppData.SyncToMET;
         4:  187:        SCH_AppData.HkPacket.MajorFrameSource             = SCH_AppData.MajorFrameSource;
-        -:  188:        
+        -:  188:
         -:  189:        /*
         -:  190:        ** Timestamps and send housekeeping packet
         -:  191:        */
@@ -286,7 +286,7 @@
         -:  284:
         1:  285:        SCH_AppData.TableVerifySuccessCount = 0;
         1:  286:        SCH_AppData.TableVerifyFailureCount = 0;
-        -:  287:        
+        -:  287:
         1:  288:        SCH_AppData.ValidMajorFrameCount      = 0;
         1:  289:        SCH_AppData.MissedMajorFrameCount     = 0;
         1:  290:        SCH_AppData.UnexpectedMajorFrameCount = 0;
@@ -309,12 +309,12 @@
         -:  307:
         6:  308:void SCH_EnableCmd(CFE_SB_MsgPtr_t MessagePtr)
         -:  309:{
-        6:  310:    boolean         GoodCommand = FALSE;
+        6:  310:    bool         GoodCommand = FALSE;
         6:  311:    SCH_EntryCmd_t *EnableCmd = NULL;
-        6:  312:    uint16          SlotNumber = 0; 
+        6:  312:    uint16          SlotNumber = 0;
         6:  313:    uint16          EntryNumber = 0;
         6:  314:    uint16          TableIndex = 0;
-        -:  315:    
+        -:  315:
         -:  316:    /*
         -:  317:    ** Extract contents of command
         -:  318:    */
@@ -333,7 +333,7 @@
         -:  331:            */
         3:  332:            CFE_EVS_SendEvent(SCH_ENABLE_CMD_ARG_ERR_EID, CFE_EVS_ERROR,
         -:  333:                              "ENABLE cmd: invalid argument, slot=%d (<%d), entry=%d (<%d)",
-        -:  334:                              SlotNumber, SCH_TOTAL_SLOTS, 
+        -:  334:                              SlotNumber, SCH_TOTAL_SLOTS,
         -:  335:                              EntryNumber, SCH_ENTRIES_PER_SLOT);
         -:  336:        }
         5:  337:        else if ((SCH_AppData.ScheduleTable[TableIndex].EnableState != SCH_ENABLED) &&
@@ -353,10 +353,10 @@
         -:  351:            ** Success
         -:  352:            */
         1:  353:            GoodCommand = TRUE;
-        -:  354:    
+        -:  354:
         1:  355:            SCH_AppData.ScheduleTable[TableIndex].EnableState = SCH_ENABLED;
         1:  356:            CFE_TBL_Modified(SCH_AppData.ScheduleTableHandle);
-        -:  357:    
+        -:  357:
         1:  358:            CFE_EVS_SendEvent(SCH_ENABLE_CMD_EID, CFE_EVS_DEBUG,
         -:  359:                              "ENABLE command: slot = %d, entry = %d",
         -:  360:                              SlotNumber, EntryNumber );
@@ -379,7 +379,7 @@
         -:  377:
         6:  378:void SCH_DisableCmd(CFE_SB_MsgPtr_t MessagePtr)
         -:  379:{
-        6:  380:    boolean         GoodCommand = FALSE;
+        6:  380:    bool         GoodCommand = FALSE;
         6:  381:    SCH_EntryCmd_t *DisableCmd  = NULL;
         6:  382:    uint16          SlotNumber  = 0;
         6:  383:    uint16          EntryNumber = 0;
@@ -403,7 +403,7 @@
         -:  401:            */
         3:  402:            CFE_EVS_SendEvent(SCH_DISABLE_CMD_ARG_ERR_EID, CFE_EVS_ERROR,
         -:  403:                              "DISABLE cmd: invalid argument, slot=%d (<%d), entry=%d (<%d)",
-        -:  404:                              SlotNumber, SCH_TOTAL_SLOTS, 
+        -:  404:                              SlotNumber, SCH_TOTAL_SLOTS,
         -:  405:                              EntryNumber, SCH_ENTRIES_PER_SLOT);
         -:  406:        }
         4:  407:        else if ((SCH_AppData.ScheduleTable[TableIndex].EnableState != SCH_ENABLED) &&
@@ -423,10 +423,10 @@
         -:  421:            ** Success
         -:  422:            */
         1:  423:            GoodCommand = TRUE;
-        -:  424:    
+        -:  424:
         1:  425:            SCH_AppData.ScheduleTable[TableIndex].EnableState = SCH_DISABLED;
         1:  426:            CFE_TBL_Modified(SCH_AppData.ScheduleTableHandle);
-        -:  427:    
+        -:  427:
         1:  428:            CFE_EVS_SendEvent(SCH_DISABLE_CMD_EID, CFE_EVS_DEBUG,
         -:  429:                              "DISABLE command: slot = %d, entry = %d",
         -:  430:                              SlotNumber, EntryNumber);
@@ -449,7 +449,7 @@
         -:  447:
         6:  448:void SCH_EnableGroupCmd(CFE_SB_MsgPtr_t MessagePtr)
         -:  449:{
-        6:  450:    boolean              GoodCommand = FALSE;
+        6:  450:    bool              GoodCommand = FALSE;
         6:  451:    uint32               TblGroupNumber = 0;
         6:  452:    uint32               TblMultiGroup = 0;
         6:  453:    int32                LoopCount = 0;
@@ -492,7 +492,7 @@
         -:  490:                {
         2:  491:                    TblGroupNumber = TableEntry->GroupData & SCH_GROUP_NUMBER_BIT_MASK;
         2:  492:                    TblMultiGroup  = TableEntry->GroupData & SCH_MULTI_GROUP_BIT_MASK;
-        -:  493:    
+        -:  493:
         -:  494:                    /*
         -:  495:                    ** Look for matching table entries
         -:  496:                    */
@@ -503,7 +503,7 @@
         2:  501:                        TableEntry->EnableState = SCH_ENABLED;
         -:  502:                    }
         -:  503:                }
-        -:  504:    
+        -:  504:
      1500:  505:                TableEntry++;
         -:  506:            }
         -:  507:
@@ -540,7 +540,7 @@
         -:  538:
         6:  539:void SCH_DisableGroupCmd(CFE_SB_MsgPtr_t MessagePtr)
         -:  540:{
-        6:  541:    boolean              GoodCommand = FALSE;
+        6:  541:    bool              GoodCommand = FALSE;
         6:  542:    uint32               TblGroupNumber = 0;
         6:  543:    uint32               TblMultiGroup = 0;
         6:  544:    int32                LoopCount = 0;
@@ -583,7 +583,7 @@
         -:  581:                {
         2:  582:                    TblGroupNumber = TableEntry->GroupData & SCH_GROUP_NUMBER_BIT_MASK;
         2:  583:                    TblMultiGroup  = TableEntry->GroupData & SCH_MULTI_GROUP_BIT_MASK;
-        -:  584:    
+        -:  584:
         -:  585:                    /*
         -:  586:                    ** Look for matching table entries
         -:  587:                    */
@@ -594,7 +594,7 @@
         2:  592:                        TableEntry->EnableState = SCH_DISABLED;
         -:  593:                    }
         -:  594:                }
-        -:  595:    
+        -:  595:
      1500:  596:                TableEntry++;
         -:  597:            }
         -:  598:
@@ -631,16 +631,16 @@
         -:  629:
         3:  630:void SCH_EnableSyncCmd(CFE_SB_MsgPtr_t MessagePtr)
         -:  631:{
-        3:  632:    boolean   GoodCommand = FALSE;
+        3:  632:    bool   GoodCommand = FALSE;
         -:  633:
         3:  634:    if(SCH_VerifyCmdLength(MessagePtr, sizeof(SCH_NoArgsCmd_t)) == SCH_SUCCESS)
         -:  635:    {
         2:  636:        GoodCommand = TRUE;
-        -:  637:        
+        -:  637:
         2:  638:        SCH_AppData.IgnoreMajorFrame = FALSE;
         2:  639:        SCH_AppData.UnexpectedMajorFrame = FALSE;
         2:  640:        SCH_AppData.ConsecutiveNoisyFrameCounter = 0;
-        -:  641:        
+        -:  641:
         2:  642:        CFE_EVS_SendEvent(SCH_ENA_SYNC_CMD_EID, CFE_EVS_DEBUG,
         -:  643:                          "Major Frame Synchronization Enabled");
         -:  644:    }
@@ -663,7 +663,7 @@
         -:  661:
         5:  662:void SCH_SendDiagTlmCmd(CFE_SB_MsgPtr_t MessagePtr)
         -:  663:{
-        5:  664:    boolean              GoodCommand = FALSE;
+        5:  664:    bool              GoodCommand = FALSE;
         5:  665:    uint32               TblIndex = 0;
         5:  666:    uint32               WordIndex = 0;
         5:  667:    uint32               BitIndex = 0;
@@ -672,26 +672,26 @@
         5:  670:    if(SCH_VerifyCmdLength(MessagePtr, sizeof(SCH_NoArgsCmd_t)) == SCH_SUCCESS)
         -:  671:    {
         3:  672:        GoodCommand = TRUE;
-        -:  673:        
+        -:  673:
         -:  674:        /* Zero out the previous entry states */
         3:  675:        CFE_PSP_MemSet(&SCH_AppData.DiagPacket.EntryStates[0], 0x0, SCH_NUM_STATUS_BYTES_REQD);
-        -:  676:        
+        -:  676:
      1503:  677:        for (TblIndex=0; TblIndex<SCH_TABLE_ENTRIES; TblIndex++)
         -:  678:        {
      1500:  679:            TableEntry = &SCH_AppData.ScheduleTable[TblIndex];
      1500:  680:            WordIndex = TblIndex/8;             /* 8 states can fit in each word */
      1500:  681:            BitIndex  = (7-(TblIndex%8))*2;     /* Determine bit pair, MSBs contain lowest index */
-        -:  682:            
+        -:  682:
      1500:  683:            if (TableEntry->EnableState == SCH_ENABLED)
         -:  684:            {
         1:  685:                SCH_AppData.DiagPacket.EntryStates[WordIndex] |= (1 << BitIndex);
-        2:  686:                SCH_AppData.DiagPacket.MsgIDs[TblIndex] = 
+        2:  686:                SCH_AppData.DiagPacket.MsgIDs[TblIndex] =
         1:  687:                  CFE_SB_GetMsgId((CFE_SB_MsgPtr_t)&SCH_AppData.MessageTable[SCH_AppData.ScheduleTable[TblIndex].MessageIndex]);
         -:  688:            }
      1499:  689:            else if (TableEntry->EnableState == SCH_DISABLED)
         -:  690:            {
         1:  691:                SCH_AppData.DiagPacket.EntryStates[WordIndex] |= (2 << BitIndex);
-        2:  692:                SCH_AppData.DiagPacket.MsgIDs[TblIndex] = 
+        2:  692:                SCH_AppData.DiagPacket.MsgIDs[TblIndex] =
         1:  693:                  CFE_SB_GetMsgId((CFE_SB_MsgPtr_t)&SCH_AppData.MessageTable[SCH_AppData.ScheduleTable[TblIndex].MessageIndex]);
         -:  694:            }
         -:  695:            else
@@ -736,7 +736,7 @@
         -:  734:    /*
         -:  735:    ** Get a pointer to the schedule table
         -:  736:    */
-       16:  737:    Result = CFE_TBL_GetAddress((void *)&SCH_AppData.ScheduleTable, 
+       16:  737:    Result = CFE_TBL_GetAddress((void *)&SCH_AppData.ScheduleTable,
        16:  738:                                         SCH_AppData.ScheduleTableHandle);
         -:  739:
        16:  740:    if (Result > CFE_SUCCESS)
@@ -752,7 +752,7 @@
         -:  750:    */
        16:  751:    if (Result == CFE_SUCCESS)
         -:  752:    {
-       13:  753:        Result = CFE_TBL_GetAddress((void *)&SCH_AppData.MessageTable, 
+       13:  753:        Result = CFE_TBL_GetAddress((void *)&SCH_AppData.MessageTable,
        13:  754:                                             SCH_AppData.MessageTableHandle);
        13:  755:        if (Result > CFE_SUCCESS)
         -:  756:        {
@@ -776,16 +776,16 @@
         -:  774:{
        44:  775:    int32               Status = SCH_SUCCESS;
        44:  776:    CFE_SB_MsgId_t      MessageID = 0;
-       44:  777:    uint16              CommandCode = 0; 
+       44:  777:    uint16              CommandCode = 0;
        44:  778:    uint16              ActualLength = 0;
-        -:  779:   
+        -:  779:
        44:  780:    ActualLength  = CFE_SB_GetTotalMsgLength(MessagePtr);
-        -:  781:      
+        -:  781:
        44:  782:    if (ExpectedLength != ActualLength)
         -:  783:    {
        10:  784:        MessageID   = CFE_SB_GetMsgId(MessagePtr);
-       10:  785:        CommandCode = CFE_SB_GetCmdCode(MessagePtr);   
-        -:  786:         
+       10:  785:        CommandCode = CFE_SB_GetCmdCode(MessagePtr);
+        -:  786:
        10:  787:        CFE_EVS_SendEvent(SCH_CMD_LEN_ERR_EID, CFE_EVS_ERROR,
         -:  788:                          "Cmd Msg with Bad length Rcvd: ID = 0x%04X, CC = %d, Exp Len = %d, Len = %d",
         -:  789:                          MessageID, CommandCode, (int)ExpectedLength, ActualLength);
@@ -805,7 +805,7 @@
         -:  803:** NOTE: For complete prolog information, see above
         -:  804:********************************************************************/
         -:  805:
-       34:  806:void SCH_PostCommandResult(boolean GoodCommand)
+       34:  806:void SCH_PostCommandResult(bool GoodCommand)
         -:  807:{
        34:  808:    if (GoodCommand)
         -:  809:    {

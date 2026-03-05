@@ -2,7 +2,7 @@
  ** File:
  **   $Id: sch_test_utils.h 1.2 2017/06/21 15:28:58EDT mdeschu Exp  $
  **
- ** Purpose: 
+ ** Purpose:
  **   This file contains the function prototypes and global variables for the unit test utilities for the SCH application.
  **
  ** References:
@@ -44,13 +44,13 @@ void SCH_Test_TearDown(void);
 /*
  * Additional UT-Assert Stub Functions and Required Data Structures
  *
- * Note: This code needs to be moved into the UT-Assert library.  We are including it here for now because the 
+ * Note: This code needs to be moved into the UT-Assert library.  We are including it here for now because the
  * next release of the UT-Assert library is not expected to happen in the near future.
  */
 
 /* ut_osapi_stubs */
 
-typedef enum 
+typedef enum
 {
     UT_CFE_EVS_REGISTER_INDEX,
     UT_CFE_EVS_SENDEVENT_INDEX,
@@ -75,7 +75,7 @@ typedef struct
 {
     int32   Value;
     uint32  Count;
-    boolean ContinueReturnCodeAfterCountZero;
+    bool ContinueReturnCodeAfterCountZero;
 } Ut_CFE_EVS_ReturnCodeTable_t;
 
 void Ut_CFE_EVS_Reset(void);
@@ -88,7 +88,7 @@ int32 CFE_EVS_ResetAllFilters(void);
 
 /* ut_ostimer_stubs */
 
-typedef enum 
+typedef enum
 {
     UT_OSTIMER_CREATE_INDEX,
     UT_OSTIMER_SET_INDEX,
@@ -105,7 +105,7 @@ typedef struct
 {
     int32   Value;
     uint32  Count;
-    boolean ContinueReturnCodeAfterCountZero;
+    bool ContinueReturnCodeAfterCountZero;
 } Ut_OSTIMER_ReturnCodeTable_t;
 
 void Ut_OSTIMER_Reset(void);
@@ -117,7 +117,7 @@ void Ut_OSTIMER_ContinueReturnCodeAfterCountZero(uint32 Index);
 
 /* ut_cfe_time_stubs */
 
-typedef enum 
+typedef enum
 {
     UT_CFE_TIME_GETUTC_INDEX,
     UT_CFE_TIME_GETTAI_INDEX,
@@ -158,7 +158,7 @@ typedef struct
 {
     int32   Value;
     uint32  Count;
-    boolean ContinueReturnCodeAfterCountZero;
+    bool ContinueReturnCodeAfterCountZero;
 } Ut_CFE_TIME_ReturnCodeTable_t;
 
 void Ut_CFE_TIME_Reset(void);

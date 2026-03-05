@@ -2,7 +2,7 @@
  ** File:
  **   $Id: sch_api_test.c 1.2 2017/06/21 15:28:56EDT mdeschu Exp  $
  **
- ** Purpose: 
+ ** Purpose:
  **   This file contains unit test cases for the functions contained in the file sch_api.c
  **
  ** References:
@@ -51,7 +51,7 @@ void SCH_LibInit_Test(void)
 
     /* Execute the function being tested */
     Result = SCH_LibInit();
-    
+
     /* Verify results */
     UtAssert_True (SCH_LibData.ProcessingDisabledCtr == SCH_LIB_DIS_CTR, "SCH_LibData.ProcessingDisabledCtr == SCH_LIB_DIS_CTR");
     UtAssert_True (Result == OS_SUCCESS, "Result == OS_SUCCESS");
@@ -66,7 +66,7 @@ void SCH_EnableProcessing_Test(void)
 
     /* Execute the function being tested */
     SCH_EnableProcessing();
-    
+
     /* Verify results */
     UtAssert_True (SCH_LibData.ProcessingDisabledCtr == 0, "SCH_LibData.ProcessingDisabledCtr == 0");
 
@@ -78,7 +78,7 @@ void SCH_DisableProcessing_Test(void)
 {
     /* Execute the function being tested */
     SCH_DisableProcessing();
-    
+
     /* Verify results */
     UtAssert_True (SCH_LibData.ProcessingDisabledCtr == 1, "SCH_LibData.ProcessingDisabledCtr == 1");
 
@@ -88,13 +88,13 @@ void SCH_DisableProcessing_Test(void)
 
 void SCH_GetProcessingState_Test_True(void)
 {
-    boolean   Result;
+    bool   Result;
 
     SCH_LibData.ProcessingDisabledCtr = 0;
 
     /* Execute the function being tested */
     Result = SCH_GetProcessingState();
-    
+
     /* Verify results */
     UtAssert_True (Result == TRUE, "Result == TRUE");
 
@@ -104,13 +104,13 @@ void SCH_GetProcessingState_Test_True(void)
 
 void SCH_GetProcessingState_Test_False(void)
 {
-    boolean   Result;
+    bool   Result;
 
     SCH_LibData.ProcessingDisabledCtr = 1;
 
     /* Execute the function being tested */
     Result = SCH_GetProcessingState();
-    
+
     /* Verify results */
     UtAssert_True (Result == FALSE, "Result == FALSE");
 

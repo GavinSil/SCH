@@ -24,7 +24,7 @@
 **
 **************************************************************************/
 
-#include "cfe.h"
+#include "cfe_endian.h"
 #include "cfe_tbl_filedef.h"
 #include "sch_platform_cfg.h"
 #include "sch_tbldefs.h"

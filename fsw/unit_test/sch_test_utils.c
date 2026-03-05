@@ -2,7 +2,7 @@
  ** File:
  **   $Id: sch_test_utils.c 1.2 2017/06/21 15:28:59EDT mdeschu Exp  $
  **
- ** Purpose: 
+ ** Purpose:
  **   This file contains unit test utilities for the sch application.
  **
  ** References:
@@ -53,7 +53,7 @@ void SCH_Test_TearDown(void)
 /*
  * Additional UT-Assert Stub Functions and Required Data Structures
  *
- * Note: This code needs to be moved into the UT-Assert library.  We are including it here for now because the 
+ * Note: This code needs to be moved into the UT-Assert library.  We are including it here for now because the
  * next release of the UT-Assert library is not expected to happen in the near future.
  */
 
@@ -66,7 +66,7 @@ void Ut_CFE_EVS_Reset(void)
 {
     memset(&Ut_CFE_EVS_HookTable, 0, sizeof(Ut_CFE_EVS_HookTable));
     memset(&Ut_CFE_EVS_ReturnCodeTable, 0, sizeof(Ut_CFE_EVS_ReturnCodeTable));
-    
+
     Ut_CFE_EVS_SetFunctionHook(UT_CFE_EVS_SENDEVENT_INDEX, &Ut_CFE_EVS_SendEventHook);
     Ut_CFE_EVS_ClearEventQueue();
 }
@@ -97,7 +97,7 @@ void Ut_CFE_EVS_SetReturnCode(uint32 Index, int32 RtnVal, uint32 CallCnt)
     }
 }
 
-boolean Ut_CFE_EVS_UseReturnCode(uint32 Index)
+bool Ut_CFE_EVS_UseReturnCode(uint32 Index)
 {
     if (Ut_CFE_EVS_ReturnCodeTable[Index].Count > 0)
     {
@@ -109,7 +109,7 @@ boolean Ut_CFE_EVS_UseReturnCode(uint32 Index)
     {
         return(TRUE);
     }
-    
+
     return(FALSE);
 }
 
@@ -135,7 +135,7 @@ int32 CFE_EVS_SendEvent (uint16 EventID, uint16 EventType, const char *Spec, ...
 {
     char     BigBuf[CFE_EVS_MAX_MESSAGE_LENGTH];
     va_list  Ptr;
-  
+
     va_start(Ptr, Spec);
     vsnprintf(BigBuf, CFE_EVS_MAX_MESSAGE_LENGTH, Spec, Ptr);
     va_end(Ptr);
@@ -147,7 +147,7 @@ int32 CFE_EVS_SendEvent (uint16 EventID, uint16 EventType, const char *Spec, ...
     /* Check for Function Hook */
     if (Ut_CFE_EVS_HookTable.CFE_EVS_SendEvent)
          return(Ut_CFE_EVS_HookTable.CFE_EVS_SendEvent(EventID, EventType, BigBuf));
- 
+
     return CFE_SUCCESS;
 }
 
@@ -195,7 +195,7 @@ int32 CFE_EVS_ResetAllFilters(void)
     /* Check for specified return */
     if (Ut_CFE_EVS_UseReturnCode(UT_CFE_EVS_RESETALLFILTERS_INDEX))
         return Ut_CFE_EVS_ReturnCodeTable[UT_CFE_EVS_RESETALLFILTERS_INDEX].Value;
- 
+
     /* Check for Function Hook */
     if (Ut_CFE_EVS_HookTable.CFE_EVS_ResetAllFilters)
         return Ut_CFE_EVS_HookTable.CFE_EVS_ResetAllFilters();
@@ -241,7 +241,7 @@ void Ut_OSTIMER_SetReturnCode(uint32 Index, int32 RtnVal, uint32 CallCnt)
     }
 }
 
-boolean Ut_OSTIMER_UseReturnCode(uint32 Index)
+bool Ut_OSTIMER_UseReturnCode(uint32 Index)
 {
     if (Ut_OSTIMER_ReturnCodeTable[Index].Count > 0)
     {
@@ -253,7 +253,7 @@ boolean Ut_OSTIMER_UseReturnCode(uint32 Index)
     {
         return(TRUE);
     }
-    
+
     return(FALSE);
 }
 
@@ -343,7 +343,7 @@ void Ut_CFE_TIME_SetReturnCode(uint32 Index, int32 RtnVal, uint32 CallCnt)
     }
 }
 
-boolean Ut_CFE_TIME_UseReturnCode(uint32 Index)
+bool Ut_CFE_TIME_UseReturnCode(uint32 Index)
 {
     if (Ut_CFE_TIME_ReturnCodeTable[Index].Count > 0)
     {
@@ -355,7 +355,7 @@ boolean Ut_CFE_TIME_UseReturnCode(uint32 Index)
     {
         return(TRUE);
     }
-    
+
     return(FALSE);
 }
 
@@ -367,42 +367,42 @@ void Ut_CFE_TIME_ContinueReturnCodeAfterCountZero(uint32 Index)
 CFE_TIME_SysTime_t  CFE_TIME_GetUTC(void)
 {
     CFE_TIME_SysTime_t  Time;
-    
+
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_GetUTC)
         return Ut_CFE_TIME_HookTable.CFE_TIME_GetUTC();
-    
+
     Time.Seconds = 0;
     Time.Subseconds = 0;
-    
+
     return Time;
 }
 
 CFE_TIME_SysTime_t  CFE_TIME_GetTAI(void)
 {
     CFE_TIME_SysTime_t  Time;
-    
+
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_GetTAI)
         return Ut_CFE_TIME_HookTable.CFE_TIME_GetTAI();
-    
+
     Time.Seconds = 0;
     Time.Subseconds = 0;
-    
+
     return Time;
 }
 
 CFE_TIME_SysTime_t  CFE_TIME_GetTime(void)
 {
     CFE_TIME_SysTime_t  Time;
-    
+
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_GetTime)
         return Ut_CFE_TIME_HookTable.CFE_TIME_GetTime();
-    
+
     Time.Seconds = 0;
     Time.Subseconds = 0;
-    
+
     return Time;
 }
 
@@ -415,7 +415,7 @@ uint32  CFE_TIME_Micro2SubSecs(uint32 MicroSeconds)
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_Micro2SubSecs)
         return Ut_CFE_TIME_HookTable.CFE_TIME_Micro2SubSecs(MicroSeconds);
-    
+
     return(0);
 }
 
@@ -428,7 +428,7 @@ uint32  CFE_TIME_Sub2MicroSecs(uint32 SubSeconds)
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_Sub2MicroSecs)
         return Ut_CFE_TIME_HookTable.CFE_TIME_Sub2MicroSecs(SubSeconds);
-    
+
     return(0);
 }
 
@@ -439,7 +439,7 @@ CFE_TIME_SysTime_t  CFE_TIME_Add(CFE_TIME_SysTime_t Time1, CFE_TIME_SysTime_t Ti
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_Add)
         return Ut_CFE_TIME_HookTable.CFE_TIME_Add(Time1, Time2);
-    
+
     Time.Seconds = 0;
     Time.Subseconds = 0;
 
@@ -453,7 +453,7 @@ CFE_TIME_SysTime_t  CFE_TIME_Subtract(CFE_TIME_SysTime_t Time1, CFE_TIME_SysTime
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_Subtract)
         return Ut_CFE_TIME_HookTable.CFE_TIME_Subtract(Time1, Time2);
- 
+
     Time.Seconds = 0;
     Time.Subseconds = 0;
 
@@ -487,7 +487,7 @@ uint32  CFE_TIME_FS2CFESeconds(uint32 SecondsFS)
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_FS2CFESeconds)
         return Ut_CFE_TIME_HookTable.CFE_TIME_FS2CFESeconds(SecondsFS);
-    
+
     return(0);
 }
 
@@ -500,11 +500,11 @@ int32  CFE_TIME_RegisterSynchCallback(CFE_TIME_SynchCallbackPtr_t CallbackFuncPt
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_RegisterSynchCallback)
         return Ut_CFE_TIME_HookTable.CFE_TIME_RegisterSynchCallback(CallbackFuncPtr);
-    
+
     return(0);
 }
 
-int32  CFE_TIME_UnregisterSynchCallback(CFE_TIME_SynchCallbackPtr_t CallbackFuncPtr) 
+int32  CFE_TIME_UnregisterSynchCallback(CFE_TIME_SynchCallbackPtr_t CallbackFuncPtr)
 {
     /* Check for specified return */
     if (Ut_CFE_TIME_UseReturnCode(UT_CFE_TIME_UNREGISTERSYNCHCALLBACK_INDEX))
@@ -513,11 +513,11 @@ int32  CFE_TIME_UnregisterSynchCallback(CFE_TIME_SynchCallbackPtr_t CallbackFunc
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_UnregisterSynchCallback)
         return Ut_CFE_TIME_HookTable.CFE_TIME_UnregisterSynchCallback(CallbackFuncPtr);
-    
+
     return(0);
 }
 
-uint32  CFE_TIME_GetMETsubsecs(void) 
+uint32  CFE_TIME_GetMETsubsecs(void)
 {
     /* Check for specified return */
     if (Ut_CFE_TIME_UseReturnCode(UT_CFE_TIME_GETMETSUBSECS_INDEX))
@@ -526,11 +526,11 @@ uint32  CFE_TIME_GetMETsubsecs(void)
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_GetMETsubsecs)
         return Ut_CFE_TIME_HookTable.CFE_TIME_GetMETsubsecs();
-    
+
     return(0);
 }
 
-uint16  CFE_TIME_GetClockInfo(void) 
+uint16  CFE_TIME_GetClockInfo(void)
 {
     /* Check for specified return */
     if (Ut_CFE_TIME_UseReturnCode(UT_CFE_TIME_GETCLOCKINFO_INDEX))
@@ -539,7 +539,7 @@ uint16  CFE_TIME_GetClockInfo(void)
     /* Check for Function Hook */
     if (Ut_CFE_TIME_HookTable.CFE_TIME_GetClockInfo)
         return Ut_CFE_TIME_HookTable.CFE_TIME_GetClockInfo();
-    
+
     return(0);
 }
 
@@ -558,7 +558,7 @@ void Ut_CFE_SB_Reset(void)
 {
     memset(&Ut_CFE_SB_HookTable, 0, sizeof(Ut_CFE_SB_HookTable));
     memset(&Ut_CFE_SB_ReturnCodeTable, 0, sizeof(Ut_CFE_SB_ReturnCodeTable));
-    
+
     Ut_CFE_SB_SetFunctionHook(UT_CFE_SB_CREATEPIPE_INDEX, &Ut_CFE_SB_CreatePipeHook);
     Ut_CFE_SB_SetFunctionHook(UT_CFE_SB_SENDMSG_INDEX, &Ut_CFE_SB_SendMsgHook);
     Ut_CFE_SB_SetFunctionHook(UT_CFE_SB_RCVMSG_INDEX, &Ut_CFE_SB_RcvMsgHook);
@@ -638,7 +638,7 @@ void Ut_CFE_SB_SetReturnCode(uint32 Index, int32 RtnVal, uint32 CallCnt)
     }
 }
 
-boolean Ut_CFE_SB_UseReturnCode(uint32 Index)
+bool Ut_CFE_SB_UseReturnCode(uint32 Index)
 {
     if (Ut_CFE_SB_ReturnCodeTable[Index].Count > 0)
     {
@@ -650,7 +650,7 @@ boolean Ut_CFE_SB_UseReturnCode(uint32 Index)
     {
         return(TRUE);
     }
-    
+
     return(FALSE);
 }
 
@@ -664,11 +664,11 @@ int32 CFE_SB_CreatePipe (CFE_SB_PipeId_t *PipeIdPtr, uint16 Depth, const char *P
     /* Check for specified return */
     if (Ut_CFE_SB_UseReturnCode(UT_CFE_SB_CREATEPIPE_INDEX))
         return Ut_CFE_SB_ReturnCodeTable[UT_CFE_SB_CREATEPIPE_INDEX].Value;
- 
+
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_CreatePipe)
         return Ut_CFE_SB_HookTable.CFE_SB_CreatePipe(PipeIdPtr, Depth, PipeName);
-        
+
     return CFE_SUCCESS;
 }
 
@@ -681,7 +681,7 @@ int32 CFE_SB_DeletePipe (CFE_SB_PipeId_t PipeId)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_DeletePipe)
         return Ut_CFE_SB_HookTable.CFE_SB_DeletePipe(PipeId);
-        
+
     return CFE_SUCCESS;
 }
 
@@ -708,7 +708,7 @@ int32 CFE_SB_Subscribe(CFE_SB_MsgId_t MsgId, CFE_SB_PipeId_t PipeId)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_Subscribe)
         return Ut_CFE_SB_HookTable.CFE_SB_Subscribe(MsgId, PipeId);
-    
+
     return CFE_SUCCESS;
 }
 
@@ -721,7 +721,7 @@ int32 CFE_SB_SubscribeLocal(CFE_SB_MsgId_t   MsgId, CFE_SB_PipeId_t  PipeId, uin
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_SubscribeLocal)
         return Ut_CFE_SB_HookTable.CFE_SB_SubscribeLocal(MsgId, PipeId, MsgLim);
-    
+
     return CFE_SUCCESS;
 }
 
@@ -734,7 +734,7 @@ int32 CFE_SB_Unsubscribe(CFE_SB_MsgId_t MsgId, CFE_SB_PipeId_t PipeId)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_Unsubscribe)
         return Ut_CFE_SB_HookTable.CFE_SB_Unsubscribe(MsgId, PipeId);
-    
+
     return CFE_SUCCESS;
 }
 
@@ -747,7 +747,7 @@ int32 CFE_SB_UnsubscribeLocal(CFE_SB_MsgId_t MsgId, CFE_SB_PipeId_t PipeId)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_UnsubscribeLocal)
         return Ut_CFE_SB_HookTable.CFE_SB_UnsubscribeLocal(MsgId, PipeId);
-    
+
     return CFE_SUCCESS;
 }
 
@@ -787,7 +787,7 @@ int32 CFE_SB_RcvMsg (CFE_SB_MsgPtr_t *BufPtr, CFE_SB_PipeId_t PipeId,
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_RcvMsg)
         return Ut_CFE_SB_HookTable.CFE_SB_RcvMsg(BufPtr,PipeId,TimeOut);
-    
+
     return CFE_SUCCESS;
 }
 
@@ -854,7 +854,7 @@ int32 CFE_SB_ZeroCopyPass(CFE_SB_Msg_t   *MsgPtr, CFE_SB_ZeroCopyHandle_t Buffer
     return CFE_SUCCESS;
 }
 
-void CFE_SB_InitMsg (void *MsgPtr, CFE_SB_MsgId_t MsgId, uint16 Length, boolean Clear)
+void CFE_SB_InitMsg (void *MsgPtr, CFE_SB_MsgId_t MsgId, uint16 Length, bool Clear)
 {
     /* Can't specify return value - this is a void function */
 
@@ -862,7 +862,7 @@ void CFE_SB_InitMsg (void *MsgPtr, CFE_SB_MsgId_t MsgId, uint16 Length, boolean 
     if (Ut_CFE_SB_HookTable.CFE_SB_InitMsg)
         Ut_CFE_SB_HookTable.CFE_SB_InitMsg(MsgPtr,MsgId,Length,Clear);
 
-    return;       
+    return;
 }
 
 uint16 CFE_SB_MsgHdrSize (CFE_SB_MsgId_t MsgId)
@@ -874,7 +874,7 @@ uint16 CFE_SB_MsgHdrSize (CFE_SB_MsgId_t MsgId)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_MsgHdrSize)
         return Ut_CFE_SB_HookTable.CFE_SB_MsgHdrSize(MsgId);
- 
+
     return CFE_SUCCESS;
 }
 
@@ -888,7 +888,7 @@ void *CFE_SB_GetUserData(CFE_SB_MsgPtr_t MsgPtr)
     if (Ut_CFE_SB_HookTable.CFE_SB_GetUserData)
         return Ut_CFE_SB_HookTable.CFE_SB_GetUserData(MsgPtr);
 
-    return  NULL;    
+    return  NULL;
 }
 
 CFE_SB_MsgId_t CFE_SB_GetMsgId (CFE_SB_MsgPtr_t MsgPtr)
@@ -900,7 +900,7 @@ CFE_SB_MsgId_t CFE_SB_GetMsgId (CFE_SB_MsgPtr_t MsgPtr)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_GetMsgId)
         return Ut_CFE_SB_HookTable.CFE_SB_GetMsgId(MsgPtr);
-    
+
     return CFE_SUCCESS;
 }
 
@@ -911,7 +911,7 @@ void  CFE_SB_SetMsgId (CFE_SB_MsgPtr_t MsgPtr, CFE_SB_MsgId_t MsgId)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_SetMsgId)
         Ut_CFE_SB_HookTable.CFE_SB_SetMsgId(MsgPtr,MsgId);
-    
+
     return;
 }
 
@@ -924,7 +924,7 @@ uint16 CFE_SB_GetUserDataLength(CFE_SB_MsgPtr_t MsgPtr)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_GetUserDataLength)
         return Ut_CFE_SB_HookTable.CFE_SB_GetUserDataLength(MsgPtr);
-    
+
     return CFE_SUCCESS;
 }/* end CFE_SB_GetUserDataLength */
 
@@ -935,7 +935,7 @@ void CFE_SB_SetUserDataLength(CFE_SB_MsgPtr_t MsgPtr,uint16 DataLength)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_SetUserDataLength)
         Ut_CFE_SB_HookTable.CFE_SB_SetUserDataLength(MsgPtr,DataLength);
-    
+
     return;
 }
 
@@ -948,7 +948,7 @@ uint16 CFE_SB_GetTotalMsgLength(CFE_SB_MsgPtr_t MsgPtr)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_GetTotalMsgLength)
         return Ut_CFE_SB_HookTable.CFE_SB_GetTotalMsgLength(MsgPtr);
-    
+
     return CFE_SUCCESS;
 }
 
@@ -959,7 +959,7 @@ void CFE_SB_SetTotalMsgLength(CFE_SB_MsgPtr_t MsgPtr,uint16 TotalLength)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_SetTotalMsgLength)
         Ut_CFE_SB_HookTable.CFE_SB_SetTotalMsgLength(MsgPtr,TotalLength);
-    
+
     return;
 }
 
@@ -972,10 +972,10 @@ CFE_TIME_SysTime_t CFE_SB_GetMsgTime (CFE_SB_MsgPtr_t MsgPtr)
     /* Check for Function Hook */
     if (Ut_CFE_SB_HookTable.CFE_SB_GetMsgTime)
         return Ut_CFE_SB_HookTable.CFE_SB_GetMsgTime(MsgPtr);
-        
+
     Time.Seconds    =  0;
-    Time.Subseconds =  0;    
-    
+    Time.Subseconds =  0;
+
     return Time;
 }
 
@@ -1053,7 +1053,7 @@ void CFE_SB_GenerateChecksum(CFE_SB_MsgPtr_t MsgPtr)
     return;
 }
 
-boolean CFE_SB_ValidateChecksum(CFE_SB_MsgPtr_t MsgPtr)
+bool CFE_SB_ValidateChecksum(CFE_SB_MsgPtr_t MsgPtr)
 {
     /* Check for specified return */
     if (Ut_CFE_SB_UseReturnCode(UT_CFE_SB_VALIDATECHECKSUM_INDEX))
