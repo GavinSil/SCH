@@ -40,6 +40,7 @@
 #include "sch_app.h"
 #include "sch_cmds.h"
 #include "sch_version.h"
+#include "sch_stepping.h"
 
 #include "cfe_time_msg.h"
 #include "sch_verify.h"
@@ -166,6 +167,13 @@ void SCH_AppMain(void)
         ** Performance Log (stop time counter)
         */
         CFE_ES_PerfLogExit(SCH_APPMAIN_PERF_ID);
+
+        /*
+        ** Notify stepping system before waiting on time boundary
+        */
+#ifdef CFE_SIM_STEPPING
+        SCH_Stepping_Hook_SemaphoreWait();
+#endif
 
         /*
         ** Wait for the next slot (Major or Minor Frame)

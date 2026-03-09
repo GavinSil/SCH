@@ -29,6 +29,7 @@
 
 #include "sch_app.h"
 #include "sch_custom.h"
+#include "sch_stepping.h"
 
 #include "cfe_time_msg.h"
 
@@ -313,6 +314,10 @@ void SCH_MajorFrameCallback(void)
             */
             SCH_AppData.MinorFramesSinceTone = 0;
             
+#ifdef CFE_SIM_STEPPING
+            SCH_Stepping_Hook_MajorFrame();
+#endif
+            
             /*
             ** Major Frame Source is now from CFE TIME
             */
@@ -434,6 +439,10 @@ void SCH_MinorFrameCallback(osal_id_t TimerId)
     ** provide more stable timing than introducing the dither associated
     ** with software response times to timer interrupts.
     */
+
+#ifdef CFE_SIM_STEPPING
+    SCH_Stepping_Hook_MinorFrame();
+#endif
 
     /*
     ** Give "wakeup SCH" semaphore
