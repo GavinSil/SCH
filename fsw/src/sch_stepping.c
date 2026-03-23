@@ -30,7 +30,7 @@
 #ifdef CFE_SIM_STEPPING
 
 #include "sch_stepping.h"
-#include "cfe_psp_sim_stepping_shim.h"
+#include "esa_stepping_shim.h"
 
 /****************************************************************************************
                                     STEPPING HOOK IMPLEMENTATIONS
@@ -45,11 +45,11 @@
  */
 void SCH_Stepping_Hook_SemaphoreWait(void)
 {
-    CFE_PSP_SimStepping_ShimEvent_t event = {0};
+    ESA_Stepping_ShimEvent_t event = {0};
 
-    event.event_kind = CFE_PSP_SIM_STEPPING_EVENT_SCH_SEMAPHORE_WAIT;
+    event.event_kind = ESA_SIM_STEPPING_EVENT_SCH_SEMAPHORE_WAIT;
 
-    CFE_PSP_SimStepping_Shim_ReportEvent(&event);
+    ESA_Stepping_Shim_ReportEvent(&event);
 }
 
 /**
@@ -62,11 +62,11 @@ void SCH_Stepping_Hook_SemaphoreWait(void)
  */
 void SCH_Stepping_Hook_MinorFrame(void)
 {
-    CFE_PSP_SimStepping_ShimEvent_t event = {0};
+    ESA_Stepping_ShimEvent_t event = {0};
 
-    event.event_kind = CFE_PSP_SIM_STEPPING_EVENT_SCH_MINOR_FRAME;
+    event.event_kind = ESA_SIM_STEPPING_EVENT_SCH_MINOR_FRAME;
 
-    CFE_PSP_SimStepping_Shim_ReportEvent(&event);
+    ESA_Stepping_Shim_ReportEvent(&event);
 }
 
 /**
@@ -78,11 +78,11 @@ void SCH_Stepping_Hook_MinorFrame(void)
  */
 void SCH_Stepping_Hook_MajorFrame(void)
 {
-    CFE_PSP_SimStepping_ShimEvent_t event = {0};
+    ESA_Stepping_ShimEvent_t event = {0};
 
-    event.event_kind = CFE_PSP_SIM_STEPPING_EVENT_SCH_MAJOR_FRAME;
+    event.event_kind = ESA_SIM_STEPPING_EVENT_SCH_MAJOR_FRAME;
 
-    CFE_PSP_SimStepping_Shim_ReportEvent(&event);
+    ESA_Stepping_Shim_ReportEvent(&event);
 }
 
 #endif /* CFE_SIM_STEPPING */
