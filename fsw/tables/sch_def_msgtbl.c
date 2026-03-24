@@ -42,6 +42,8 @@
 /* #include "mm_msgids.h"  */
 /* #include "sc_msgids.h"  */
 #include "sch_msgids.h"
+/* SAMPLE_APP_SEND_HK_MID = 0x1800 | 0x83 = 0x1883 (CMD base + SEND_HK topic ID) */
+#define SAMPLE_APP_SEND_HK_MID 0x1883
 
 
 /*************************************************************************
@@ -142,9 +144,8 @@ SCH_MessageEntry_t SCH_DefaultMessageTable[SCH_MAX_MESSAGES] =
   /*
   **  CFS routine messages
   */
-    /* command ID #16 - HK Send Combined Housekeeping Msg #1 */
-/*{ { CFE_MAKE_BIG16(HK_SEND_COMBINED_PKT_MID), CFE_MAKE_BIG16(0xC000), CFE_MAKE_BIG16(0x0003), 0x0000, HK_COMBINED_PKT1_MID } }, */
-  { { CFE_MAKE_BIG16(SCH_UNUSED_MID) } },
+    /* command ID #16 - SAMPLE_APP HK 请求消息（步进模式下体现调度节奏）*/
+  { { CFE_MAKE_BIG16(SAMPLE_APP_SEND_HK_MID), CFE_MAKE_BIG16(0xC000), CFE_MAKE_BIG16(0x0001), 0x0000 } },
     /* command ID #17 - HK Send Combined Housekeeping Msg #2 */
 /*{ { CFE_MAKE_BIG16(HK_SEND_COMBINED_PKT_MID), CFE_MAKE_BIG16(0xC000), CFE_MAKE_BIG16(0x0003), 0x0000, HK_COMBINED_PKT2_MID } }, */
   { { CFE_MAKE_BIG16(SCH_UNUSED_MID) } },
