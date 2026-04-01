@@ -35,23 +35,6 @@
 /****************************************************************************************
                                     STEPPING HOOK IMPLEMENTATIONS
  ***************************************************************************************/
-
-/**
- * @brief Hook called when SCH waits on the TimeSemaphore
- *
- * Thin fact forwarder: reports scheduler semaphore wait boundary to the unified stepping
- * shim. This occurs at the start of each minor frame processing cycle.
- * The shim dispatches this to the core state machine for stepping synchronization.
- */
-void SCH_Stepping_Hook_SemaphoreWait(void)
-{
-    ESA_Stepping_ShimEvent_t event = {0};
-
-    event.event_kind = ESA_SIM_STEPPING_EVENT_SCH_SEMAPHORE_WAIT;
-
-    ESA_Stepping_Shim_ReportEvent(&event);
-}
-
 /**
  * @brief Hook called at each minor frame boundary
  *
@@ -69,20 +52,5 @@ void SCH_Stepping_Hook_MinorFrame(void)
     ESA_Stepping_Shim_ReportEvent(&event);
 }
 
-/**
- * @brief Hook called at major frame boundary
- *
- * Thin fact forwarder: reports major frame boundary to the unified stepping shim.
- * Major frames mark the beginning of a complete scheduling cycle.
- * The shim dispatches this to the core state machine for stepping synchronization.
- */
-void SCH_Stepping_Hook_MajorFrame(void)
-{
-    ESA_Stepping_ShimEvent_t event = {0};
-
-    event.event_kind = ESA_SIM_STEPPING_EVENT_SCH_MAJOR_FRAME;
-
-    ESA_Stepping_Shim_ReportEvent(&event);
-}
 
 #endif /* CFE_SIM_STEPPING */

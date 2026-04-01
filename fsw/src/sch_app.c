@@ -169,13 +169,6 @@ void SCH_AppMain(void)
         CFE_ES_PerfLogExit(SCH_APPMAIN_PERF_ID);
 
         /*
-        ** Notify stepping system before waiting on time boundary
-        */
-#ifdef CFE_SIM_STEPPING
-        SCH_Stepping_Hook_SemaphoreWait();
-#endif
-
-        /*
         ** Wait for the next slot (Major or Minor Frame)
         */
         Status = OS_BinSemTake(SCH_AppData.TimeSemaphore);

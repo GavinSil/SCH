@@ -313,11 +313,6 @@ void SCH_MajorFrameCallback(void)
             ** Set current slot = zero to synchronize activities
             */
             SCH_AppData.MinorFramesSinceTone = 0;
-            
-#ifdef CFE_SIM_STEPPING
-            SCH_Stepping_Hook_MajorFrame();
-#endif
-            
             /*
             ** Major Frame Source is now from CFE TIME
             */
